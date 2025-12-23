@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useFadeIn } from "@/hooks/use-fade-in"
 import { useLanguage } from "@/contexts/language-context"
@@ -35,11 +35,13 @@ export function Contact() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <ContactItem Icon={Phone} title={t.contact.phone} content="+39 345 457 8270" index={0} />
-            <ContactItem Icon={Mail} title={t.contact.email} content="contact@wefastconsulting.com" index={1} />
+            <ContactItem Icon={Mail} title={t.contact.email} content="contact@wefast-consulting.it" index={1} />
             <ContactItem Icon={MapPin} title={t.contact.offices} content={t.contact.officesLocation} index={2} />
           </div>
 
           <ContactButton />
+
+          <SocialMediaLinks />
         </div>
       </div>
 
@@ -48,12 +50,12 @@ export function Contact() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-muted-foreground text-sm">
             <p>{t.contact.footer}</p>
             <a
-              href="http://www.wefastconsulting.com"
+              href="https://www.wefast-consulting.it"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"
             >
-              www.wefastconsulting.com
+              www.wefast-consulting.it
             </a>
           </div>
         </div>
@@ -96,8 +98,40 @@ function ContactButton() {
       }`}
     >
       <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-12" asChild>
-        <a href="mailto:contact@wefastconsulting.com">{t.contact.cta}</a>
+        <a href="mailto:contact@wefast-consulting.it">{t.contact.cta}</a>
       </Button>
+    </div>
+  )
+}
+
+function SocialMediaLinks() {
+  const socialFade = useFadeIn()
+
+  return (
+    <div
+      ref={socialFade.ref}
+      className={`flex justify-center gap-6 transition-all duration-1000 delay-700 ${
+        socialFade.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
+      <a
+        href="https://www.facebook.com/people/Wefast-Consulting/61585295012208/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+        aria-label="Facebook"
+      >
+        <Facebook className="h-6 w-6 text-primary" />
+      </a>
+      <a
+        href="https://www.instagram.com/wefast.consulting/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+        aria-label="Instagram"
+      >
+        <Instagram className="h-6 w-6 text-primary" />
+      </a>
     </div>
   )
 }
