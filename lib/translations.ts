@@ -42,6 +42,11 @@ export const translations = {
         description:
           "Une fusion unique entre expertise technique et direction artistique. Nous croyons que les idées les plus percutantes naissent à l'intersection de la data et du design.",
       },
+      stats: {
+        projectsDelivered: "Projets livrés",
+        satisfiedClients: "Clients satisfaits",
+        resultsCommitment: "Engagement résultats",
+      },
     },
     services: {
       title: "Nos Services",
@@ -135,6 +140,11 @@ export const translations = {
         description:
           "A unique fusion of technical expertise and artistic direction. We believe that the most impactful ideas are born at the intersection of data and design.",
       },
+      stats: {
+        projectsDelivered: "Projects delivered",
+        satisfiedClients: "Satisfied clients",
+        resultsCommitment: "Results commitment",
+      },
     },
     services: {
       title: "Our Services",
@@ -222,6 +232,11 @@ export const translations = {
         title: "Il Nostro Approccio",
         description:
           "Una fusione unica tra competenza tecnica e direzione artistica. Crediamo che le idee più incisive nascano all'intersezione tra dati e design.",
+      },
+      stats: {
+        projectsDelivered: "Progetti consegnati",
+        satisfiedClients: "Clienti soddisfatti",
+        resultsCommitment: "Impegno risultati",
       },
     },
     services: {

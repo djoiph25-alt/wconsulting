@@ -1,12 +1,15 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Stats() {
+  const { t } = useLanguage()
+
   const stats = [
-    { value: 60, label: "Projets livrés", prefix: "+" },
-    { value: 40, label: "Clients satisfaits", prefix: "+" },
-    { value: 100, label: "Engagement résultats", suffix: "%" },
+    { value: 60, label: t.about.stats.projectsDelivered, prefix: "+" },
+    { value: 40, label: t.about.stats.satisfiedClients, prefix: "+" },
+    { value: 100, label: t.about.stats.resultsCommitment, suffix: "%" },
   ]
 
   return (
