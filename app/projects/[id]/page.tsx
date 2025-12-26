@@ -2,6 +2,7 @@
 import { Contact } from "@/components/contact"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { getProjectTranslation } from "@/lib/project-translations"
 import { useLanguage } from "@/contexts/language-context"
 
 type ProjectData = {
@@ -772,11 +773,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
     notFound()
   }
 
-  return <ProjectPageContent project={project} />
+  return <ProjectPageContent id={id} project={project} />
 }
 
-function ProjectPageContent({ project }: { project: any }) {
-  const { t } = useLanguage()
+function ProjectPageContent({ id, project }: { id: string; project: ProjectData }) {
+  const { language } = useLanguage()
+  const translation = getProjectTranslation(id, language)
 
   return (
     <main className="min-h-screen bg-background">
@@ -794,7 +796,8 @@ function ProjectPageContent({ project }: { project: any }) {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            {t.gallery.backToProjects}
+            {/* Use translation for "Back to Projects" */}
+            {language === "fr" ? "Retour à la galerie" : language === "en" ? "Back to Projects" : "Torna alla Galleria"}
           </Link>
 
           {/* Hero Section */}
@@ -810,7 +813,9 @@ function ProjectPageContent({ project }: { project: any }) {
                   ))}
                 </div>
                 <h1 className="text-5xl md:text-7xl font-bold text-foreground text-balance">{project.title}</h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">{project.category}</p>
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  {translation?.category || project.category}
+                </p>
               </div>
 
               {/* Project Meta */}
@@ -853,9 +858,15 @@ function ProjectPageContent({ project }: { project: any }) {
             <section className="py-16 bg-card/30">
               <div className="max-w-7xl mx-auto space-y-12">
                 <div className="text-center space-y-4">
-                  <h2 className="text-4xl md:text-5xl font-bold text-foreground">Social Media</h2>
+                  <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+                    {language === "fr" ? "Médias Sociaux" : language === "en" ? "Social Media" : "Media Sociali"}
+                  </h2>
                   <p className="text-lg text-muted-foreground">
-                    Contenu vidéo pour les réseaux sociaux et campagnes publicitaires
+                    {language === "fr"
+                      ? "Contenu vidéo pour les réseaux sociaux et campagnes publicitaires"
+                      : language === "en"
+                        ? "Video content for social media and advertising campaigns"
+                        : "Contenuti video per social media e campagne pubblicitarie"}
                   </p>
                 </div>
 
@@ -895,27 +906,37 @@ function ProjectPageContent({ project }: { project: any }) {
             <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
               {/* Description */}
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-foreground">Le Projet</h2>
-                <p className="text-muted-foreground leading-relaxed">{project.description}</p>
+                <h2 className="text-3xl font-bold text-foreground">
+                  {language === "fr" ? "Le Projet" : language === "en" ? "The Project" : "Il Progetto"}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  {translation?.description || project.description}
+                </p>
               </div>
 
               {/* Challenge */}
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-foreground">Le Défi</h2>
-                <p className="text-muted-foreground leading-relaxed">{project.challenge}</p>
+                <h2 className="text-3xl font-bold text-foreground">
+                  {language === "fr" ? "Le Défi" : language === "en" ? "The Challenge" : "La Sfida"}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">{translation?.challenge || project.challenge}</p>
               </div>
 
               {/* Solution */}
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-foreground">La Solution</h2>
-                <p className="text-muted-foreground leading-relaxed">{project.solution}</p>
+                <h2 className="text-3xl font-bold text-foreground">
+                  {language === "fr" ? "La Solution" : language === "en" ? "The Solution" : "La Soluzione"}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">{translation?.solution || project.solution}</p>
               </div>
 
               {/* Results */}
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-foreground">Les Résultats</h2>
+                <h2 className="text-3xl font-bold text-foreground">
+                  {language === "fr" ? "Les Résultats" : language === "en" ? "The Results" : "I Risultati"}
+                </h2>
                 <ul className="space-y-4">
-                  {project.results.map((result: string, index: number) => (
+                  {(translation?.results || project.results).map((result: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
                       <svg
                         className="w-6 h-6 text-primary flex-shrink-0 mt-0.5"
@@ -943,16 +964,28 @@ function ProjectPageContent({ project }: { project: any }) {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance">
-              Prêt à créer quelque chose d'exceptionnel ?
+              {language === "fr"
+                ? "Prêt à créer quelque chose d'exceptionnel ?"
+                : language === "en"
+                  ? "Ready to create something exceptional?"
+                  : "Pronti a creare qualcosa di eccezionale?"}
             </h2>
             <p className="text-xl text-muted-foreground text-pretty">
-              Discutons de votre projet et voyons comment nous pouvons vous aider.
+              {language === "fr"
+                ? "Discutons de votre projet et voyons comment nous pouvons vous aider."
+                : language === "en"
+                  ? "Let's discuss your project and see how we can help."
+                  : "Parliamo del tuo progetto e vediamo come possiamo aiutarti."}
             </p>
             <Link
               href="/#contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors duration-300 shadow-lg shadow-primary/25"
             >
-              Démarrer un projet
+              {language === "fr"
+                ? "Démarrer un projet"
+                : language === "en"
+                  ? "Start a project"
+                  : "Iniziare un progetto"}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
