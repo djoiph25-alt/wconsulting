@@ -11,19 +11,23 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("fr")
+export function LanguageProvider({ children, initialLang }: { children: ReactNode; initialLang?: Language }) {
+  const [language, setLanguageState] = useState<Language>(initialLang || "fr")
 
   useEffect(() => {
-    const saved = localStorage.getItem("language") as Language
-    if (saved && ["fr", "en", "it"].includes(saved)) {
-      setLanguageState(saved)
+    if (!initialLang) {
+      const saved = localStorage.getItem("language") as Language
+      if (saved && ["fr", "en", "it"].includes(saved)) {
+        setLanguageState(saved)
+      }
     }
-  }, [])
+  }, [initialLang])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem("language", lang)
+    const langPrefix = lang === "fr" ? "" : `/${lang}`
+    window.location.href = `${langPrefix}${window.location.hash}`
   }
 
   const t = getTranslation(language)

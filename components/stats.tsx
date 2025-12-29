@@ -64,7 +64,7 @@ function StatCounter({
   useEffect(() => {
     if (!isVisible) return
 
-    const duration = 2000 // 2 seconds
+    const duration = 2000
     const steps = 60
     const increment = value / steps
     const stepDuration = duration / steps
@@ -99,3 +99,5 @@ function StatCounter({
     </div>
   )
 }
+
+export default Stats

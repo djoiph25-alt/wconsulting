@@ -98,6 +98,21 @@ export const translations = {
     gallery: {
       backToProjects: "Retour aux projets",
     },
+    video: {
+      title: "Présentation vidéo",
+    },
+    projectDetail: {
+      client: "Client",
+      year: "Année",
+      services: "Services",
+      theProject: "Le Projet",
+      theChallenge: "Le Défi",
+      theSolution: "La Solution",
+      theResults: "Les Résultats",
+      ctaTitle: "Prêt à créer quelque chose d'exceptionnel ?",
+      ctaSubtitle: "Discutons de votre projet et voyons comment nous pouvons vous aider.",
+      ctaButton: "Démarrer un projet",
+    },
   },
   en: {
     nav: {
@@ -191,6 +206,21 @@ export const translations = {
     gallery: {
       backToProjects: "Back to projects",
     },
+    video: {
+      title: "Video showcase",
+    },
+    projectDetail: {
+      client: "Client",
+      year: "Year",
+      services: "Services",
+      theProject: "The Project",
+      theChallenge: "The Challenge",
+      theSolution: "The Solution",
+      theResults: "The Results",
+      ctaTitle: "Ready to create something exceptional?",
+      ctaSubtitle: "Let's discuss your project and see how we can help.",
+      ctaButton: "Start a project",
+    },
   },
   it: {
     nav: {
@@ -283,6 +313,21 @@ export const translations = {
     },
     gallery: {
       backToProjects: "Torna ai progetti",
+    },
+    video: {
+      title: "Presentazione video",
+    },
+    projectDetail: {
+      client: "Cliente",
+      year: "Anno",
+      services: "Servizi",
+      theProject: "Il Progetto",
+      theChallenge: "La Sfida",
+      theSolution: "La Soluzione",
+      theResults: "I Risultati",
+      ctaTitle: "Pronti a creare qualcosa di eccezionale?",
+      ctaSubtitle: "Parliamo del tuo progetto e vediamo come possiamo aiutarti.",
+      ctaButton: "Inizia un progetto",
     },
   },
 }

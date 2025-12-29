@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import type { Language } from "@/contexts/language-context"
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -9,12 +10,15 @@ import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
-export function Navigation() {
+export function Navigation({ initialLang }: { initialLang?: Language }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const isHomePage = pathname === "/"
+  const isHomePage = pathname === "/" || pathname === "/en" || pathname === "/it"
   const { language, setLanguage, t } = useLanguage()
+
+  const currentLangFromPath = pathname?.startsWith("/en") ? "en" : pathname?.startsWith("/it") ? "it" : "fr"
+  const langPrefix = currentLangFromPath === "fr" ? "" : `/${currentLangFromPath}`
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +27,12 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (initialLang && initialLang !== language) {
+      setLanguage(initialLang)
+    }
+  }, [initialLang])
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault()
@@ -34,7 +44,7 @@ export function Navigation() {
         element.scrollIntoView({ behavior: "smooth" })
       }
     } else {
-      window.location.href = `/${sectionId}`
+      window.location.href = `${langPrefix}/${sectionId}`
     }
   }
 
@@ -46,7 +56,7 @@ export function Navigation() {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between opacity-0 animate-fade-in-up">
-          <Link href="/" className="flex items-center">
+          <Link href={langPrefix || "/"} className="flex items-center">
             <Image src="/logo.png" alt="Wefast Consulting" width={150} height={40} className="h-10 w-auto" />
           </Link>
 

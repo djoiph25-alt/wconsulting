@@ -5,6 +5,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useFadeIn } from "@/hooks/use-fade-in"
 import { useLanguage } from "@/contexts/language-context"
+import { getProjectTranslation } from "@/lib/project-translations"
 
 export function Gallery() {
   const [filter, setFilter] = useState("all")
@@ -12,6 +13,8 @@ export function Gallery() {
   const subtitleFade = useFadeIn()
   const filterFade = useFadeIn()
   const { language } = useLanguage()
+
+  const langPrefix = language === "fr" ? "" : `/${language}`
 
   const translations = {
     fr: {
@@ -46,7 +49,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Packaging Design"],
       image: "/images/belleville-1.jpg",
       title: "Belleville Brûlerie",
-      description: "Identité de marque complète pour torréfacteur parisien de café premium",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour torréfacteur parisien de café premium"
+          : language === "en"
+            ? "Complete brand identity for premium Parisian coffee roaster"
+            : "Identità di marca completa per torrefazione parigina di caffè premium",
       client: "Belleville",
       year: "2024",
     },
@@ -56,7 +64,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Packaging Design"],
       image: "/images/la-piadineria-1.jpg",
       title: "La Piadineria",
-      description: "Identité de marque complète pour chaîne italienne de restauration rapide",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour chaîne italienne de restauration rapide"
+          : language === "en"
+            ? "Complete brand identity for Italian fast-food chain"
+            : "Identità di marca completa per catena italiana di fast food",
       client: "La Piadineria",
       year: "2024",
     },
@@ -66,7 +79,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Marketing"],
       image: "/images/bread-france-thumbnail.jpg",
       title: "Bread France",
-      description: "Identité de marque complète pour boulangerie artisanale française",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour boulangerie artisanale française"
+          : language === "en"
+            ? "Complete brand identity for French artisanal bakery"
+            : "Identità di marca completa per panificio artigianale francese",
       client: "Bread France",
       year: "2024",
     },
@@ -76,7 +94,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "E-commerce", "Digital Marketing"],
       image: "/images/kazidomi-5.jpg",
       title: "Kazidomi",
-      description: "Identité de marque complète pour e-commerce de produits bio et livraison",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour e-commerce de produits bio et livraison"
+          : language === "en"
+            ? "Complete brand identity for organic products e-commerce and delivery"
+            : "Identità di marca completa per e-commerce di prodotti biologici e consegna",
       client: "Kazidomi",
       year: "2024",
     },
@@ -86,7 +109,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "App Design", "AI", "Tech"],
       image: "/images/askmona-thumbnail.jpg",
       title: "askmona",
-      description: "Identité de marque complète pour startup AI dédiée au secteur culturel",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour startup AI dédiée au secteur culturel"
+          : language === "en"
+            ? "Complete brand identity for AI startup dedicated to cultural sector"
+            : "Identità di marca completa per startup AI dedicata al settore culturale",
       client: "Ask Mona",
       year: "2024",
     },
@@ -96,7 +124,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Web Design", "Real Estate"],
       image: "/images/manda-1.jpg",
       title: "Manda",
-      description: "Identité de marque complète pour entreprise immobilière française moderne",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour entreprise immobilière française moderne"
+          : language === "en"
+            ? "Complete brand identity for modern French real estate company"
+            : "Identità di marca completa per azienda immobiliare francese moderna",
       client: "Manda",
       year: "2024",
     },
@@ -106,7 +139,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "App Design", "Fintech"],
       image: "/images/lydia-5.jpg",
       title: "Lydia",
-      description: "Identité de marque complète pour application de paiement mobile française",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour application de paiement mobile française"
+          : language === "en"
+            ? "Complete brand identity for French mobile payment application"
+            : "Identità di marca completa per applicazione di pagamento mobile francese",
       client: "Lydia",
       year: "2024",
     },
@@ -116,7 +154,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Web Design", "Automotive"],
       image: "/images/carizy-7.jpg",
       title: "Carizy",
-      description: "Identité de marque complète pour plateforme d'achat et location de véhicules",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour plateforme d'achat et location de véhicules"
+          : language === "en"
+            ? "Complete brand identity for vehicle purchase and rental platform"
+            : "Identità di marca completa per piattaforma di acquisto e noleggio veicoli",
       client: "Carizy",
       year: "2024",
     },
@@ -126,7 +169,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Product Design"],
       image: "/images/veja-shoe-heel-detail.jpg",
       title: "VEJA Sneakers",
-      description: "Identité de marque complète pour marque de baskets éco-responsable",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour marque de baskets éco-responsable"
+          : language === "en"
+            ? "Complete brand identity for eco-responsible sneaker brand"
+            : "Identità di marca completa per marchio di sneaker eco-responsabili",
       client: "VEJA",
       year: "2024",
     },
@@ -136,7 +184,12 @@ export function Gallery() {
       tags: ["Branding", "Web Design", "App Design"],
       image: "/images/7.jpg",
       title: "ALAN Healthcare",
-      description: "Identité de marque complète pour une plateforme de santé",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour une plateforme de santé"
+          : language === "en"
+            ? "Complete brand identity for a health platform"
+            : "Identità di marca completa per una piattaforma sanitaria",
       client: "ALAN",
       year: "2024",
     },
@@ -146,7 +199,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Marketing", "Automotive", "Web Design"],
       image: "/images/ada-thumbnail.jpg",
       title: "ADA Location de Véhicules",
-      description: "Identité de marque complète pour service de location de véhicules premium",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour service de location de véhicules premium"
+          : language === "en"
+            ? "Complete brand identity for premium vehicle rental service"
+            : "Identità di marca completa per servizio di noleggio veicoli premium",
       client: "ADA France",
       year: "2024",
     },
@@ -156,7 +214,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "Signage Design", "Environmental Branding"],
       image: "/images/touma-beaute-02.jpg",
       title: "Touma Beauté",
-      description: "Identité de marque et signalétique complète pour salon de beauté haut de gamme",
+      description:
+        language === "fr"
+          ? "Identité de marque et signalétique complète pour salon de beauté haut de gamme"
+          : language === "en"
+            ? "Complete brand identity and signage for high-end beauty salon"
+            : "Identità di marca e segnaletica completa per salone di bellezza di alto livello",
       client: "Touma Beauté",
       year: "2024",
     },
@@ -166,7 +229,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "App Design", "Sustainable", "Food Tech"],
       image: "/images/mealcanteen-7.jpg",
       title: "MealCanteen",
-      description: "Identité de marque complète pour service de livraison de repas sains et éco-responsables",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour service de livraison de repas sains et éco-responsables"
+          : language === "en"
+            ? "Complete brand identity for healthy and eco-responsible meal delivery service"
+            : "Identità di marca completa per servizio di consegna di pasti sani ed eco-responsabili",
       client: "MealCanteen",
       year: "2024",
     },
@@ -176,7 +244,12 @@ export function Gallery() {
       tags: ["Branding", "Logo Design", "E-commerce", "Web Design", "App Design"],
       image: "/images/miravia-6.jpg",
       title: "Miravia",
-      description: "Identité de marque complète pour plateforme e-commerce et marketplace moderne",
+      description:
+        language === "fr"
+          ? "Identité de marque complète pour plateforme e-commerce et marketplace moderne"
+          : language === "en"
+            ? "Complete brand identity for modern e-commerce platform and marketplace"
+            : "Identità di marca completa per piattaforma e-commerce e marketplace moderna",
       client: "Miravia",
       year: "2024",
     },
@@ -234,7 +307,14 @@ export function Gallery() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} clientLabel={t.client} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                clientLabel={t.client}
+                language={language}
+                langPrefix={langPrefix}
+              />
             ))}
           </div>
 
@@ -259,15 +339,22 @@ function ProjectCard({
   project,
   index,
   clientLabel,
+  language,
+  langPrefix,
 }: {
   project: any
   index: number
   clientLabel: string
+  language: "fr" | "en" | "it"
+  langPrefix: string
 }) {
   const cardFade = useFadeIn()
 
+  const translation = getProjectTranslation(project.id, language)
+  const description = translation?.description || project.description
+
   return (
-    <Link href={`/projects/${project.id}`}>
+    <Link href={`${langPrefix}/projects/${project.id}`}>
       <Card
         ref={cardFade.ref}
         className={`group overflow-hidden border-0 bg-card hover:shadow-2xl hover:shadow-primary/10 transition-all duration-1000 cursor-pointer h-full ${
@@ -281,34 +368,44 @@ function ProjectCard({
             alt={project.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2">
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full backdrop-blur-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag: string) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider rounded-md shadow-lg"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="p-6 space-y-3">
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <span className="font-medium text-primary">{project.category}</span>
-            <span>{project.year}</span>
+        <div className="p-6 space-y-4">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-primary">
+            <span>{project.category}</span>
+            <span className="text-muted-foreground">{project.year}</span>
           </div>
-          <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-            {project.title}
-          </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
-          <div className="pt-2 flex items-center text-sm text-muted-foreground">
-            <span className="font-medium">{clientLabel}</span>
-            <span className="ml-2">{project.client}</span>
+          <div className="space-y-2">
+            <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
+              {project.title}
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{description}</p>
+          </div>
+          <div className="pt-4 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-foreground">{clientLabel}</span>
+              <span>{project.client}</span>
+            </div>
+            <svg
+              className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </div>
         </div>
       </Card>
