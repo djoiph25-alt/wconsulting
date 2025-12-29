@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import type { Language } from "@/lib/translations"
 import { getProjectTranslation } from "@/lib/project-translations"
 import { projectData } from "@/lib/project-data"
+import { Navigation } from "@/components/navigation"
 
 const projectPageTranslations = {
   fr: {
@@ -92,6 +93,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <Navigation initialLang={lang} />
       <div className="container mx-auto px-6 py-32">
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Back Button */}
