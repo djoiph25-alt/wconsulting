@@ -1,203 +1,206 @@
-"use client"
 import { Contact } from "@/components/contact"
 import { notFound } from "next/navigation"
-import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import { getProjectTranslation } from "@/lib/project-translations"
-import { useLanguage } from "@/contexts/language-context"
-import { projectData, type ProjectData } from "@/lib/project-data"
+import { projectData } from "@/lib/project-data"
 import { Navigation } from "@/components/navigation"
+import LinkNext from "next/link"
 
-export default async function ProjectPage({ params }: { params: { id: string } }) {
-  const { id } = params
-  const project = projectData[id as keyof typeof projectData]
-  const { language } = useLanguage()
-  const translation = getProjectTranslation(id, language)
+const lang = "fr"
+
+const labels = {
+  backToProjects: "Retour à la galerie",
+  client: "Client",
+  year: "Année",
+  services: "Services",
+  theProject: "Le Projet",
+  theChallenge: "Le Défi",
+  theSolution: "La Solution",
+  theResults: "Les Résultats",
+  readyToCreate: "Prêt à créer quelque chose d'exceptionnel ?",
+  letsDiscuss: "Discutons de votre projet et voyons comment nous pouvons vous aider.",
+  startProject: "Démarrer un projet",
+  socialMedia: "Médias Sociaux",
+  socialMediaDesc: "Contenu vidéo pour les réseaux sociaux et campagnes publicitaires",
+}
+
+export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const project = projectData[id]
 
   if (!project) {
     notFound()
   }
 
+  const tr = getProjectTranslation(id, lang)
+
   return (
-    <main className="min-h-screen bg-background">
-      <Navigation />
-      <ProjectPageContent id={id} project={project} translation={translation} language={language} />
-      <Contact />
-    </main>
-  )
-}
+    <div className="min-h-screen bg-black text-white">
+      <Navigation initialLang={lang} />
+      <div className="container mx-auto px-6 py-32">
+        <div className="max-w-6xl mx-auto space-y-12">
+          {/* Back Button */}
+          <LinkNext
+            href="/#gallery"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-white transition-colors duration-300"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            {labels.backToProjects}
+          </LinkNext>
 
-function ProjectPageContent({
-  id,
-  project,
-  translation,
-  language,
-}: { id: string; project: ProjectData; translation: any; language: string }) {
-  return (
-    <div className="container mx-auto px-6 py-32">
-      <div className="max-w-6xl mx-auto space-y-12">
-        {/* Back Button */}
-        <Link
-          href="/#gallery"
-          onClick={(e) => {
-            e.preventDefault()
-            window.location.href = "/#gallery"
-          }}
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          {/* Use translation for "Back to Projects" */}
-          {language === "fr" ? "Retour à la galerie" : language === "en" ? "Back to Projects" : "Torna alla Galleria"}
-        </Link>
-
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 bg-gradient-to-b from-background to-card/50">
-          <div className="max-w-5xl mx-auto space-y-8">
-            {/* Project Header */}
-            <div className="space-y-6">
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag: string) => (
-                  <span key={tag} className="px-4 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h1 className="text-5xl md:text-7xl font-bold text-foreground text-balance">{project.title}</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {translation?.category || project.category}
-              </p>
-            </div>
-
-            {/* Project Meta */}
-            <div className="grid md:grid-cols-3 gap-8 pt-8 border-t border-border">
-              <div className="space-y-2">
-                <div className="text-sm text-muted-foreground font-medium">Client</div>
-                <div className="text-lg font-semibold text-foreground">{project.client}</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-sm text-muted-foreground font-medium">Année</div>
-                <div className="text-lg font-semibold text-foreground">{project.year}</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-sm text-muted-foreground font-medium">Services</div>
-                <div className="text-lg font-semibold text-foreground">{project.services.join(", ")}</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Project Images */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto space-y-8">
-            {project.images.map((image: { url: string; caption: string }, index: number) => (
-              <div key={index} className="space-y-4">
-                <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
-                  <img
-                    src={image.url || "/placeholder.svg"}
-                    alt={image.caption}
-                    className="w-full h-full object-cover" // changed from object-contain to object-cover for full display
-                  />
+          {/* Hero Section */}
+          <section className="pt-16 pb-16">
+            <div className="max-w-5xl mx-auto space-y-8">
+              <div className="space-y-6">
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag: string) => (
+                    <span key={tag} className="px-4 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                {image.caption && <p className="text-center text-sm text-muted-foreground">{image.caption}</p>}
-              </div>
-            ))}
-          </div>
-        </section>
 
-        {project.socialMedia && project.socialMedia.videos.length > 0 && (
-          <section className="py-16 bg-card/30">
-            <div className="max-w-7xl mx-auto space-y-12">
-              <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-                  {language === "fr" ? "Médias Sociaux" : language === "en" ? "Social Media" : "Media Sociali"}
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  {language === "fr"
-                    ? "Contenu vidéo pour les réseaux sociaux et campagnes publicitaires"
-                    : language === "en"
-                      ? "Video content for social media and advertising campaigns"
-                      : "Contenuti video per social media e campagne pubblicitarie"}
-                </p>
+                <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">{project.title}</h1>
+                <p className="text-2xl text-gray-400">{tr?.category || project.category}</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8">
-                {project.socialMedia.videos.map(
-                  (video: { url: string; caption: string; orientation: "vertical" | "horizontal" }, index: number) => (
-                    <div key={index} className="space-y-4">
-                      <div
-                        className={`relative overflow-hidden rounded-2xl bg-black ${
-                          video.orientation === "vertical" ? "aspect-[9/16] max-w-md mx-auto" : "aspect-video"
-                        }`}
-                      >
-                        <video
-                          src={video.url}
-                          controls
-                          playsInline
-                          className="w-full h-full object-cover" // changed to object-cover
-                          preload="metadata"
-                        >
-                          Votre navigateur ne supporte pas la lecture de vidéos.
-                        </video>
-                      </div>
-                      {video.caption && <p className="text-center text-sm text-muted-foreground">{video.caption}</p>}
-                    </div>
-                  ),
-                )}
+              <div className="grid md:grid-cols-3 gap-8 pt-8 border-t border-gray-800">
+                <div>
+                  <h3 className="text-sm uppercase tracking-wider text-gray-500 mb-2">{labels.client}</h3>
+                  <p className="text-lg text-white font-semibold">{project.client}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm uppercase tracking-wider text-gray-500 mb-2">{labels.year}</h3>
+                  <p className="text-lg text-white font-semibold">{project.year}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm uppercase tracking-wider text-gray-500 mb-2">{labels.services}</h3>
+                  <p className="text-lg text-white font-semibold">
+                    {Array.isArray(project.services) ? project.services.join(", ") : project.services}
+                  </p>
+                </div>
               </div>
             </div>
           </section>
-        )}
 
-        {/* Project Details */}
-        <section className="py-16">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
-            {/* Description */}
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-foreground">
-                {language === "fr" ? "Le Projet" : language === "en" ? "The Project" : "Il Progetto"}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">{translation?.description || project.description}</p>
+          {/* Project Images */}
+          <section className="py-16">
+            <div className="max-w-7xl mx-auto space-y-8">
+              {project.images.map((image: { url: string; caption: string }, index: number) => (
+                <div key={index} className="space-y-4">
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
+                    <img
+                      src={image.url || "/placeholder.svg"}
+                      alt={image.caption}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
+          </section>
 
-            {/* Challenge */}
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-foreground">
-                {language === "fr" ? "Le Défi" : language === "en" ? "The Challenge" : "La Sfida"}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">{translation?.challenge || project.challenge}</p>
-            </div>
+          {/* Social Media */}
+          {project.socialMedia && project.socialMedia.videos.length > 0 && (
+            <section className="py-16 bg-gray-900/30 rounded-3xl px-8">
+              <div className="max-w-7xl mx-auto space-y-12">
+                <div className="text-center space-y-4">
+                  <h2 className="text-4xl md:text-5xl font-bold text-white">{labels.socialMedia}</h2>
+                  <p className="text-lg text-gray-400">{labels.socialMediaDesc}</p>
+                </div>
 
-            {/* Solution */}
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-foreground">
-                {language === "fr" ? "La Solution" : language === "en" ? "The Solution" : "La Soluzione"}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">{translation?.solution || project.solution}</p>
-            </div>
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                  {project.socialMedia.videos.map(
+                    (
+                      video: { url: string; caption: string; orientation: "vertical" | "horizontal" },
+                      index: number,
+                    ) => (
+                      <div key={index} className="space-y-4">
+                        <div
+                          className={`relative overflow-hidden rounded-2xl bg-black shadow-xl ${
+                            video.orientation === "vertical" ? "aspect-[9/16] max-w-sm mx-auto" : "aspect-video w-full"
+                          }`}
+                        >
+                          <video
+                            src={video.url}
+                            controls
+                            playsInline
+                            className="w-full h-full object-cover"
+                            preload="metadata"
+                          >
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                          </video>
+                        </div>
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
 
-            {/* Results */}
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-foreground">
-                {language === "fr" ? "Les Résultats" : language === "en" ? "The Results" : "I Risultati"}
-              </h2>
-              <ul className="space-y-4">
-                {(translation?.results || project.results).map((result: string, index: number) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-muted-foreground leading-relaxed">{result}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Project Details */}
+          <section className="py-16">
+            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
+              <div className="space-y-6">
+                <h2 className="text-3xl font-bold text-white">{labels.theProject}</h2>
+                <p className="text-gray-400 leading-relaxed">{tr?.description || project.description}</p>
+              </div>
+
+              <div className="space-y-6">
+                <h2 className="text-3xl font-bold text-white">{labels.theChallenge}</h2>
+                <p className="text-gray-400 leading-relaxed">{tr?.challenge || project.challenge}</p>
+              </div>
+
+              <div className="space-y-6">
+                <h2 className="text-3xl font-bold text-white">{labels.theSolution}</h2>
+                <p className="text-gray-400 leading-relaxed">{tr?.solution || project.solution}</p>
+              </div>
+
+              <div className="space-y-6">
+                <h2 className="text-3xl font-bold text-white">{labels.theResults}</h2>
+                <ul className="space-y-4">
+                  {(tr?.results || project.results).map((result: string, index: number) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <svg
+                        className="w-6 h-6 text-primary flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="text-gray-400 leading-relaxed">{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section className="py-24">
+            <div className="container mx-auto px-6">
+              <div className="max-w-4xl mx-auto text-center space-y-8">
+                <h2 className="text-4xl md:text-5xl font-bold text-white text-balance">{labels.readyToCreate}</h2>
+                <p className="text-xl text-gray-400 text-pretty">{labels.letsDiscuss}</p>
+                <LinkNext
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-colors duration-300 shadow-lg shadow-primary/25"
+                >
+                  {labels.startProject}
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </LinkNext>
+              </div>
+            </div>
+          </section>
+
+          <Contact />
+        </div>
       </div>
     </div>
   )
