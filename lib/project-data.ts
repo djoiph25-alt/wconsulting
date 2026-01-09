@@ -291,16 +291,23 @@ export const projectData: Record<string, ProjectData> = {
     },
     tags: ["Branding", "Social Media", "Content Creation"],
   },
-  alan: {
-    title: "ALAN",
-    category: "Branding & Identity",
-    client: "Alan",
-    year: "2023",
-    services: ["Brand Identity", "Design System"],
-    description: "Alan révolutionne l'assurance santé avec une approche technologique et humaine.",
-    challenge: "Faire évoluer l'identité visuelle pour refléter la croissance et la maturité de la marque.",
-    solution: "Un design system complet et une identité visuelle épurée.",
-    results: ["Cohérence de marque renforcée", "Adoption fluide du design system", "Identité visuelle moderne"],
+  "alani-healthcare": {
+    title: "ALAN Healthcare",
+    category: "Branding & Digital Design",
+    client: "ALAN",
+    year: "2024",
+    services: ["Brand Identity", "Logo Design", "Web Design", "App Design"],
+    description:
+      "ALAN est une plateforme innovante de services de santé qui révolutionne l'accès aux soins. Identité de marque moderne et accessible inspirant confiance.",
+    challenge:
+      "Créer une marque moderne et accessible qui inspire confiance dans le secteur de la santé tout en se démarquant par son approche digitale innovante.",
+    solution:
+      "Nous avons développé une identité visuelle distinctive avec un stéthoscope stylisé. Palette vibrante centrée sur le bleu royal symbolisant confiance et santé.",
+    results: [
+      "Identité visuelle moderne inspirant confiance",
+      "Cohérence de marque du digital aux uniformes",
+      "Design system complet applicable partout",
+    ],
     images: [
       { url: "/images/alan-1.jpg", caption: "" },
       { url: "/images/alan-2.jpg", caption: "" },
@@ -310,7 +317,7 @@ export const projectData: Record<string, ProjectData> = {
       { url: "/images/alan-6.jpg", caption: "" },
       { url: "/images/alan-7.jpg", caption: "" },
     ],
-    tags: ["Branding", "Design System"],
+    tags: ["Branding", "Web Design", "App Design"],
   },
   "la-piadineria": {
     title: "La Piadineria",
@@ -446,26 +453,6 @@ export const projectData: Record<string, ProjectData> = {
       { url: "/images/miravia-7.jpg", caption: "" },
     ],
     tags: ["Branding", "Logo Design", "E-commerce", "Web Design", "App Design"],
-  },
-  "alani-healthcare": {
-    title: "ALAN Healthcare",
-    category: "Branding & Digital Design",
-    client: "ALAN",
-    year: "2024",
-    services: ["Brand Identity", "Logo Design", "Web Design", "App Design"],
-    description:
-      "ALAN est une plateforme innovante de services de santé qui révolutionne l'accès aux soins. Identité de marque moderne et accessible inspirant confiance.",
-    challenge:
-      "Créer une marque moderne et accessible qui inspire confiance dans le secteur de la santé tout en se démarquant par son approche digitale innovante.",
-    solution:
-      "Nous avons développé une identité visuelle distinctive avec un stéthoscope stylisé. Palette vibrante centrée sur le bleu royal symbolisant confiance et santé.",
-    results: [
-      "Identité visuelle moderne inspirant confiance",
-      "Cohérence de marque du digital aux uniformes",
-      "Design system complet applicable partout",
-    ],
-    images: [{ url: "/images/7.jpg", caption: "Identité de marque ALAN Healthcare" }],
-    tags: ["Branding", "Web Design", "App Design"],
   },
   "ada-vehicle-rental": {
     title: "ADA Location de Véhicules",
